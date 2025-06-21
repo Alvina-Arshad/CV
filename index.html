@@ -6,7 +6,7 @@
     <title>Alvina Arshad - Software Engineer</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,6 +21,7 @@
                 extend: {
                     fontFamily: {
                         'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         primary: '#3b82f6',
@@ -29,10 +30,21 @@
                         dark: '#0f172a',
                         'dark-lighter': '#1e293b',
                         'dark-card': '#334155',
+                        'code-bg': '#1a1a2e',
+                        'code-border': '#16213e',
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s ease-out',
                         'slide-up': 'slideUp 0.8s ease-out',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out',
+                        'slide-in-right': 'slideInRight 0.8s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret .75s step-end infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'code-rain': 'codeRain 20s linear infinite',
+                        'matrix': 'matrix 0.5s linear infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -42,6 +54,38 @@
                         slideUp: {
                             '0%': { opacity: '0', transform: 'translateY(30px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
+                            '100%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.8)' }
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        'blink-caret': {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: '#3b82f6' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        codeRain: {
+                            '0%': { transform: 'translateY(-100vh)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        matrix: {
+                            '0%': { opacity: '1' },
+                            '100%': { opacity: '0' }
                         }
                     }
                 }
@@ -53,6 +97,95 @@
         html {
             scroll-behavior: smooth;
         }
+
+        
+        .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* This replaces space-x-3 */
+    background: #0f172a;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    min-width: 0;
+}
+
+.skill-item:hover {
+    transform: scale(1.05); /* Move hover transform to separate rule */
+}
+
+.skill-item > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.skill-bar {
+    height: 6px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+
+
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #1a1a2e;
+    border: 1px solid #3b82f6;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 350px;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    font-family: 'JetBrains Mono', monospace;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-header {
+    background: #16213e;
+    margin: -1rem -1rem 0.5rem -1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notification-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27ca3f; }
+
+.notification-content {
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.notification-title {
+    color: #3b82f6;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+
+
+
         
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6, #06b6d4);
@@ -66,12 +199,142 @@
         }
         
         .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.15);
         }
         
         .section-padding {
             padding: 5rem 1.5rem;
+        }
+        
+        .code-snippet {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-snippet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            animation: scan 2s ease-in-out infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #3b82f6;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        .terminal-window {
+            background: #1a1a2e;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .terminal-header {
+            background: #16213e;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+        
+        .matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+    overflow: hidden;
+}
+
+.matrix-char {
+    position: absolute;
+    color: #0f3460;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    animation: matrix 0.5s linear infinite;
+    will-change: transform; /* Add for better performance */
+}
+        
+        .skill-bar {
+            height: 6px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+            transform-origin: left;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch 0.3s ease-in-out infinite alternate-reverse;
+            color: #3b82f6;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch 0.3s ease-in-out infinite alternate-reverse;
+            color: #06b6d4;
+            z-index: -2;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
         
         @media (max-width: 768px) {
@@ -79,32 +342,67 @@
                 padding: 3rem 1rem;
             }
         }
+        
+        .intersection-observed {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.intersection-observed.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
     </style>
 </head>
-<body class="font-inter bg-dark text-white antialiased">
+<body class="font-inter bg-dark text-white antialiased relative overflow-x-hidden">
+    
+    <!-- Matrix Background -->
+    <div class="matrix-bg" id="matrixBg"></div>
     
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-sm border-b border-gray-800">
         <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold gradient-text">
+            <div class="text-2xl font-bold gradient-text font-mono glitch" data-text="<Alvina/>">
                 &lt;Alvina/&gt;
             </div>
             
             <div class="hidden md:flex space-x-8">
-                <a href="#home" class="hover:text-primary transition-colors">Home</a>
-                <a href="#objective" class="hover:text-primary transition-colors">Objective</a>
-                <a href="#experience" class="hover:text-primary transition-colors">Experience</a>
-                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
-                <a href="#education" class="hover:text-primary transition-colors">Education</a>
-                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
-                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+                <a href="#home" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Home</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#objective" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Objective</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#experience" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Experience</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#projects" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Projects</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#education" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Education</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#skills" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Skills</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="hover:text-primary transition-all duration-300 relative group">
+                    <span>Contact</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
             </div>
             
             <div class="flex items-center space-x-4">
-                <button id="langToggle" class="px-4 py-2 bg-primary hover:bg-primary-dark rounded-lg text-white transition-colors">
+                <button id="langToggle" class="px-4 py-2 bg-primary hover:bg-primary-dark rounded-lg text-white transition-all duration-300 transform hover:scale-105">
                     Deutsch
                 </button>
-                <button id="mobileMenu" class="md:hidden text-xl">
+                <button id="mobileMenu" class="md:hidden text-xl hover:text-primary transition-colors">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -125,38 +423,60 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center section-padding pt-24">
+    <section id="home" class="min-h-screen flex items-center justify-center section-padding pt-24 relative">
         <div class="max-w-4xl mx-auto text-center">
             <div class="animate-fade-in">
-                <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
-                    <i class="fas fa-code text-4xl text-white"></i>
+                <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element relative overflow-hidden">
+                    <i class="fas fa-code text-4xl text-white z-10"></i>
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-75 animate-pulse-slow"></div>
                 </div>
+                
+                <!-- Terminal-style intro -->
+                <div class="terminal-window mb-8 mx-auto max-w-2xl">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                        <span class="text-gray-400 font-mono text-sm ml-2">terminal</span>
+                    </div>
+                    <div class="p-6 font-mono text-left">
+                        <div class="text-green-400 mb-2">$ whoami</div>
+                        <div class="text-primary mb-2 typing-animation">Alvina Arshad - Full Stack Software Engineer</div>
+                        <div class="text-green-400 mb-2">$ cat skills.txt</div>
+                        <div class="text-gray-300">JavaScript, TypeScript, React, Angular, Node.js, Java, C#...</div>
+                        <div class="text-green-400 mt-4">$ ls experience/</div>
+                        <div class="text-accent">4+ years of building scalable applications</div>
+                        <div class="text-green-400 mt-4">$ echo "Ready to code!"</div>
+                        <div class="text-white">Ready to code! <span class="animate-pulse text-primary">█</span></div>
+                    </div>
+                </div>
+                
                 <h1 class="text-5xl md:text-7xl font-bold mb-6">
                     <span data-en="Hi, I'm" data-de="Hallo, ich bin" class="text-gray-300">Hi, I'm</span><br>
-                    <span class="gradient-text">Alvina</span>
+                    <span class="gradient-text glitch" data-text="Alvina">Alvina</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-400 mb-8">
                     <span data-en="Full Stack Software Engineer" data-de="Full Stack Software-Ingenieurin">Full Stack Software Engineer</span>
                 </p>
                 <div class="flex flex-wrap justify-center gap-6 mb-8 text-gray-300">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-phone text-primary"></i>
+                    <div class="flex items-center space-x-2 group hover:text-primary transition-colors">
+                        <i class="fas fa-phone text-primary group-hover:animate-bounce-slow"></i>
                         <span>+49 15755840218</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-envelope text-primary"></i>
+                    <div class="flex items-center space-x-2 group hover:text-primary transition-colors">
+                        <i class="fas fa-envelope text-primary group-hover:animate-bounce-slow"></i>
                         <span>engr.alvina.arshad@gmail.com</span>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-map-marker-alt text-primary"></i>
+                    <div class="flex items-center space-x-2 group hover:text-primary transition-colors">
+                        <i class="fas fa-map-marker-alt text-primary group-hover:animate-bounce-slow"></i>
                         <span>Magdeburg, Germany</span>
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#contact" class="px-8 py-3 bg-primary hover:bg-primary-dark rounded-lg text-white font-semibold transition-colors">
+                    <a href="#contact" class="px-8 py-3 bg-primary hover:bg-primary-dark rounded-lg text-white font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                         Get In Touch
                     </a>
-                    <a href="#projects" class="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-lg font-semibold transition-colors">
+                    <a href="#projects" class="px-8 py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
                         View Projects
                     </a>
                 </div>
@@ -165,27 +485,50 @@
     </section>
 
     <!-- Objective Section -->
-    <section id="objective" class="section-padding bg-dark-lighter">
+    <section id="objective" class="section-padding bg-dark-lighter intersection-observed">
         <div class="max-w-4xl mx-auto text-center">
             <div class="animate-slide-up">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
                     <i class="fas fa-bullseye text-2xl text-white"></i>
                 </div>
                 <h2 class="text-4xl font-bold mb-8 gradient-text" data-en="Objective" data-de="Zielsetzung">Objective</h2>
-                <p class="text-lg text-gray-300 leading-relaxed" data-en="Full Stack Engineer with 4+ years of experience focusing on scalable backend services and frontend applications using JavaScript, TypeScript, React, Angular, NestJS and Node.js. Experienced in mar-tech tools, personalization, TDD, and CI/CD pipelines. Proven collaborator in cross-functional teams delivering scalable solutions for millions of users." data-de="Full Stack Engineer mit über 4 Jahren Erfahrung in skalierbaren Backend-Services und Frontend-Anwendungen mit JavaScript, TypeScript, React, Angular, NestJS und Node.js. Erfahrung in Mar-Tech-Tools, Personalisierung, TDD und CI/CD-Pipelines. Nachgewiesener Kooperationspartner in funktionsübergreifenden Teams, die skalierbare Lösungen für Millionen von Nutzern liefern.">
-                    Full Stack Engineer with 4+ years of experience focusing on scalable backend services and frontend applications using 
-                    JavaScript, TypeScript, React, Angular, NestJS and Node.js. Experienced in mar-tech tools, personalization, TDD, and 
-                    CI/CD pipelines. Proven collaborator in cross-functional teams delivering scalable solutions for millions of users.
-                </p>
+                
+                <!-- Code block style objective -->
+                <div class="terminal-window max-w-4xl mx-auto">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                        <span class="text-gray-400 font-mono text-sm ml-2">objective.js</span>
+                    </div>
+                    <div class="p-6 font-mono text-left text-sm md:text-base">
+                        <div class="text-purple-400">const</div>
+                        <div class="text-accent ml-4">engineer = {</div>
+                        <div class="text-gray-300 ml-8">name: <span class="text-green-400">"Alvina Arshad"</span>,</div>
+                        <div class="text-gray-300 ml-8">experience: <span class="text-yellow-400">4+</span> <span class="text-green-400">"years"</span>,</div>
+                        <div class="text-gray-300 ml-8">specialization: [</div>
+                        <div class="text-green-400 ml-12">"scalable backend services",</div>
+                        <div class="text-green-400 ml-12">"frontend applications",</div>
+                        <div class="text-green-400 ml-12">"mar-tech tools",</div>
+                        <div class="text-green-400 ml-12">"TDD & CI/CD"</div>
+                        <div class="text-gray-300 ml-8">],</div>
+                        <div class="text-gray-300 ml-8">technologies: [</div>
+                        <div class="text-green-400 ml-12">"JavaScript", "TypeScript", "React",</div>
+                        <div class="text-green-400 ml-12">"Angular", "NestJS", "Node.js"</div>
+                        <div class="text-gray-300 ml-8">],</div>
+                        <div class="text-gray-300 ml-8">impact: <span class="text-green-400">"millions of users"</span></div>
+                        <div class="text-accent ml-4">};</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="section-padding">
+    <section id="experience" class="section-padding intersection-observed">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
                     <i class="fas fa-briefcase text-2xl text-white"></i>
                 </div>
                 <h2 class="text-4xl font-bold gradient-text" data-en="Experience" data-de="Berufserfahrung">Experience</h2>
@@ -193,70 +536,71 @@
             
             <div class="space-y-8">
                 <!-- CureMD Experience -->
-                <div class="bg-dark-lighter rounded-lg p-8 card-hover">
+                <div class="bg-dark-lighter rounded-lg p-8 card-hover relative overflow-hidden code-snippet">
                     <div class="flex items-start space-x-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center flex-shrink-0 floating-element">
                             <i class="fas fa-hospital text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-primary mb-2">SENIOR SOFTWARE ENGINEER (FULL-STACK DEVELOPER)</h3>
+                            <h3 class="text-2xl font-bold text-primary mb-2 font-mono">SENIOR SOFTWARE ENGINEER</h3>
                             <div class="text-accent font-semibold mb-2">CureMD | Lahore, Pakistan | August 2021 – March 2025</div>
-                            <div class="text-sm text-gray-400 mb-6 bg-dark-card p-4 rounded-lg">
+                            <div class="text-sm text-gray-400 mb-6 bg-dark-card p-4 rounded-lg border-l-4 border-primary">
+                                <i class="fas fa-info-circle text-primary mr-2"></i>
                                 CureMD is a US-based healthcare technology company specializing in electronic health records (EHR) and clinical software solutions that enhance patient care and optimize medical workflows.
                             </div>
                         </div>
                     </div>
                     <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Developed and maintained scalable, modular backend services and APIs using Java (Spring Boot), .NET Core, Node.js, NestJS, and SQL, prioritizing performance, maintainability, and extensibility.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Developed and maintained scalable, modular backend services and APIs using <span class="text-accent font-mono">Java (Spring Boot)</span>, <span class="text-accent font-mono">.NET Core</span>, <span class="text-accent font-mono">Node.js</span>, <span class="text-accent font-mono">NestJS</span>, and <span class="text-accent font-mono">SQL</span>.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Designed and implemented RESTful and GraphQL APIs with clean, reusable, and modular code, enabling efficient data querying and seamless integration with Angular frontend applications.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Designed and implemented <span class="text-accent font-mono">RESTful</span> and <span class="text-accent font-mono">GraphQL APIs</span> with clean, reusable, and modular code.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Led backend architecture improvements using microservices and API gateway patterns to enhance system scalability and prepare for future growth and technology migrations.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Led backend architecture improvements using <span class="text-accent font-mono">microservices</span> and <span class="text-accent font-mono">API gateway patterns</span>.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Collaborated closely with cross-functional Agile teams, including digital marketing and product, to build data-driven, personalized user experiences that scale to millions of users globally.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Collaborated with cross-functional Agile teams to build data-driven, personalized user experiences for <span class="text-primary font-bold">millions of users</span>.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Implemented A/B testing frameworks and integrated analytics tools to guide experimentation and product decisions, improving user engagement and conversion rates.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Implemented <span class="text-accent font-mono">A/B testing frameworks</span> and integrated analytics tools.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Championed engineering best practices including test-driven development (TDD), automated testing, and continuous integration/deployment (CI/CD) pipelines using Jenkins and GitLab.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Championed <span class="text-accent font-mono">TDD</span>, automated testing, and <span class="text-accent font-mono">CI/CD pipelines</span> using Jenkins and GitLab.</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Freelance Experience -->
-                <div class="bg-dark-lighter rounded-lg p-8 card-hover">
+                <div class="bg-dark-lighter rounded-lg p-8 card-hover relative overflow-hidden code-snippet">
                     <div class="flex items-start space-x-4 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div class="w-12 h-12 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center flex-shrink-0 floating-element">
                             <i class="fas fa-laptop-code text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-primary mb-2">FULL STACK DEVELOPER</h3>
+                            <h3 class="text-2xl font-bold text-primary mb-2 font-mono">FULL STACK DEVELOPER</h3>
                             <div class="text-accent font-semibold mb-4">Freelance | Lahore, Pakistan</div>
                         </div>
                     </div>
                     <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Developed and deployed a scalable, maintainable interactive educational platform using React for the frontend and Python for the backend.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Developed scalable educational platform using <span class="text-accent font-mono">React</span> and <span class="text-accent font-mono">Python</span>.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Engineered CI/CD pipelines to automate testing and deployment, reducing errors by 25% and accelerating update speed by 40%.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Engineered CI/CD pipelines reducing errors by <span class="text-green-400 font-bold">25%</span> and accelerating updates by <span class="text-green-400 font-bold">40%</span>.</span>
                         </li>
-                        <li class="flex items-start space-x-3">
-                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                            <span>Enhanced user engagement by 30% through data-driven features such as quizzes, flashcards, and video summaries.</span>
+                        <li class="flex items-start space-x-3 group">
+                            <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover:animate-pulse"></div>
+                            <span class="group-hover:text-white transition-colors">Enhanced user engagement by <span class="text-green-400 font-bold">30%</span> through data-driven features.</span>
                         </li>
                     </ul>
                 </div>
@@ -265,161 +609,267 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section-padding bg-dark-lighter">
+    <section id="projects" class="section-padding bg-dark-lighter intersection-observed">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
                     <i class="fas fa-project-diagram text-2xl text-white"></i>
                 </div>
                 <h2 class="text-4xl font-bold gradient-text" data-en="Projects" data-de="Projekte">Projects</h2>
             </div>
             
             <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-                <!-- Project cards -->
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                            <i class="fas fa-stethoscope text-white"></i>
+                <!-- Project cards with enhanced animations -->
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-stethoscope text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-primary transition-colors">Oncology Cancer Staging Platform</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Oncology Cancer Staging Platform</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Developed a scalable full-stack healthcare platform using Angular, ASP.NET Core, SQL, and Java microservices.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Angular</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">ASP.NET Core</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">SQL</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Java</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Developed a scalable full-stack healthcare platform using Angular, ASP.NET Core, SQL, and Java microservices.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Angular</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">ASP.NET Core</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">SQL</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Java</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-primary to-accent h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 90%"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-palette text-white"></i>
+ 
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-palette text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-accent transition-colors">Healthcare App Layout Development</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Healthcare App Layout Development</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Led UI/UX redesign with Angular and improved backend APIs using NestJS, ASP.NET Core, and Java.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Angular</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">NestJS</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">ASP.NET Core</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Led UI/UX redesign with Angular and improved backend APIs using NestJS, ASP.NET Core, and Java.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">Angular</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">NestJS</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">ASP.NET Core</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 85%"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                            <i class="fas fa-brain text-white"></i>
+ 
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-brain text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-primary transition-colors">ML Bias Mitigation in Clinical Data</h3>
                         </div>
-                        <h3 class="text-xl font-bold">ML Bias Mitigation in Clinical Data</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Developed ML platform to detect and mitigate bias in clinical datasets across age, disease, and gender.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Python</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Flask</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Machine Learning</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Developed ML platform to detect and mitigate bias in clinical datasets across age, disease, and gender.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Python</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Flask</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Machine Learning</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-primary to-accent h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 95%"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-chart-line text-white"></i>
+ 
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-chart-line text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-accent transition-colors">Mixpanel Analytics Integration</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Mixpanel Analytics Integration</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Integrated Mixpanel analytics and implemented A/B testing frameworks with Angular frontend.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Angular</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Mixpanel</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">A/B Testing</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Integrated Mixpanel analytics and implemented A/B testing frameworks with Angular frontend.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">Angular</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">Mixpanel</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">A/B Testing</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 88%"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                            <i class="fas fa-graduation-cap text-white"></i>
+ 
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-graduation-cap text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-primary transition-colors">Interactive Educational Platform</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Interactive Educational Platform</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Created full-stack platform with React frontend and Python backend, implementing RESTful APIs.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">React</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Python</span>
-                        <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">REST API</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Created full-stack platform with React frontend and Python backend, implementing RESTful APIs.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">React</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">Python</span>
+                            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-colors cursor-default">REST API</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-primary to-accent h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 92%"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="bg-dark rounded-lg p-6 card-hover">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-white"></i>
+ 
+                <div class="bg-dark rounded-lg p-6 card-hover relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center floating-element">
+                                <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold group-hover:text-accent transition-colors">Audit Trails Module</h3>
                         </div>
-                        <h3 class="text-xl font-bold">Audit Trails Module</h3>
-                    </div>
-                    <p class="text-gray-300 mb-6">
-                        Built secure audit trail features using Angular and ASP.NET Core with automated testing.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Angular</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">ASP.NET Core</span>
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Security</span>
+                        <p class="text-gray-300 mb-6 group-hover:text-white transition-colors">
+                            Built secure audit trail features using Angular and ASP.NET Core with automated testing.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">Angular</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">ASP.NET Core</span>
+                            <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-mono hover:bg-accent hover:text-white transition-colors cursor-default">Security</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div class="bg-gradient-to-r from-accent to-primary h-2 rounded-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-1000" style="width: 87%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Education Section -->
-    <section id="education" class="section-padding">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
-                    <i class="fas fa-university text-2xl text-white"></i>
+ 
+<!-- Education Section -->
+<section id="education" class="section-padding intersection-observed">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
+                <i class="fas fa-university text-2xl text-white"></i>
+            </div>
+            <h2 class="text-4xl font-bold gradient-text" data-en="Education" data-de="Bildung">Education</h2>
+        </div>
+        
+        <div class="bg-dark-lighter rounded-lg p-8 card-hover relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 transform translate-x-full group-hover:translate-x-0 transition-transform duration-1000"></div>
+            
+            <!-- Terminal-style header -->
+            <div class="terminal-window mb-6">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="text-gray-400 font-mono text-sm ml-2">education.json</span>
                 </div>
-                <h2 class="text-4xl font-bold gradient-text" data-en="Education" data-de="Bildung">Education</h2>
+                <div class="p-4 font-mono text-sm">
+                    <div class="text-accent">{</div>
+                    <div class="text-gray-300 ml-4">"degree": <span class="text-green-400">"B.Sc. Mechatronics"</span>,</div>
+                    <div class="text-gray-300 ml-4">"university": <span class="text-green-400">"UET Lahore"</span>,</div>
+                    <div class="text-gray-300 ml-4">"duration": <span class="text-yellow-400">"2017-2021"</span>,</div>
+                    <div class="text-gray-300 ml-4">"status": <span class="text-green-400">"completed"</span></div>
+                    <div class="text-accent">}</div>
+                </div>
             </div>
             
-            <div class="bg-dark-lighter rounded-lg p-8 card-hover">
-                <div class="flex items-start space-x-6">
-                    <div class="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-3xl font-bold text-primary mb-3" data-en="B.Sc. Mechatronics and Control Engineering" data-de="B.Sc. Mechatronik und Regelungstechnik">B.Sc. Mechatronics and Control Engineering</h3>
-                        <h4 class="text-xl font-semibold text-accent mb-2">UET Lahore</h4>
-                        <p class="text-gray-400 mb-6">Lahore, Punjab | 2017-2021</p>
-                        
-                        <div class="bg-dark-card p-6 rounded-lg">
-                            <h4 class="text-lg font-bold text-primary mb-3">Final Year Project (FYP)</h4>
-                            <h5 class="text-lg font-semibold mb-3">Fault-Tolerant Autonomous Wheeled Robot</h5>
-                            <p class="text-gray-300">
-                                Designed and implemented a fault-tolerant autonomous robot using Python and ROS to navigate complex environments.
+            <div class="flex items-start space-x-6 relative z-10">
+                <div class="w-16 h-16 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center flex-shrink-0 floating-element group-hover:animate-pulse">
+                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-3xl font-bold text-primary mb-3 group-hover:text-accent transition-colors" data-en="B.Sc. Mechatronics and Control Engineering" data-de="B.Sc. Mechatronik und Regelungstechnik">B.Sc. Mechatronics and Control Engineering</h3>
+                    <h4 class="text-xl font-semibold text-accent mb-2 font-mono">UET Lahore</h4>
+                    <p class="text-gray-400 mb-6 font-mono">📍 Lahore, Punjab | 📅 2017-2021</p>
+                    
+                    <!-- Final Year Project -->
+                    <div class="bg-dark-card p-6 rounded-lg border-l-4 border-primary relative overflow-hidden group/project">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 transform translate-y-full group-hover/project:translate-y-0 transition-transform duration-500"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <i class="fas fa-robot text-primary text-xl group-hover/project:animate-bounce-slow"></i>
+                                <h4 class="text-lg font-bold text-primary font-mono">Final Year Project (FYP)</h4>
+                            </div>
+                            <h5 class="text-lg font-semibold mb-3 text-accent group-hover/project:text-white transition-colors">Fault-Tolerant Autonomous Wheeled Robot</h5>
+                            <p class="text-gray-300 mb-4 group-hover/project:text-white transition-colors">
+                                Designed and implemented a fault-tolerant autonomous robot using <span class="text-accent font-mono">Python</span> and <span class="text-accent font-mono">ROS</span> to navigate complex environments with real-time obstacle detection and path planning.
                             </p>
+                            
+                            <!-- Tech stack with animations -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 cursor-default">Python</span>
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 cursor-default">ROS</span>
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 cursor-default">Robotics</span>
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 cursor-default">AI/ML</span>
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-mono hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 cursor-default">Computer Vision</span>
+                            </div>
+                            
+                            <!-- Project highlights -->
+                            <div class="space-y-2">
+                                <div class="flex items-start space-x-3 group/highlight">
+                                    <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover/highlight:animate-pulse"></div>
+                                    <span class="text-sm text-gray-300 group-hover/highlight:text-white transition-colors">Implemented SLAM (Simultaneous Localization and Mapping) algorithms</span>
+                                </div>
+                                <div class="flex items-start space-x-3 group/highlight">
+                                    <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover/highlight:animate-pulse"></div>
+                                    <span class="text-sm text-gray-300 group-hover/highlight:text-white transition-colors">Developed fault detection and recovery mechanisms</span>
+                                </div>
+                                <div class="flex items-start space-x-3 group/highlight">
+                                    <div class="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover/highlight:animate-pulse"></div>
+                                    <span class="text-sm text-gray-300 group-hover/highlight:text-white transition-colors">Achieved 95% navigation accuracy in complex environments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Achievements -->
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-dark p-4 rounded-lg border border-gray-600 hover:border-primary transition-colors group/achievement">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-trophy text-yellow-400 group-hover/achievement:animate-bounce-slow"></i>
+                                <span class="font-mono text-sm text-primary">Academic Excellence</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Dean's List recognition for outstanding performance</p>
+                        </div>
+                        <div class="bg-dark p-4 rounded-lg border border-gray-600 hover:border-accent transition-colors group/achievement">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-code text-accent group-hover/achievement:animate-bounce-slow"></i>
+                                <span class="font-mono text-sm text-accent">Tech Focus</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Specialized in embedded systems and automation</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
+ 
     <!-- Skills Section -->
-    <section id="skills" class="section-padding bg-dark-lighter">
+    <section id="skills" class="section-padding bg-dark-lighter intersection-observed">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
                     <i class="fas fa-cogs text-2xl text-white"></i>
                 </div>
                 <h2 class="text-4xl font-bold gradient-text" data-en="Technical & Soft Skills" data-de="Technische & Soziale Fähigkeiten">Technical & Soft Skills</h2>
@@ -427,99 +877,189 @@
             
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Technical Skills -->
-                <div>
-                    <h3 class="text-2xl font-bold mb-8 text-primary" data-en="Technical Skills" data-de="Technische Fähigkeiten">Technical Skills</h3>
+                <div class="animate-slide-in-left">
+                    <h3 class="text-2xl font-bold mb-8 text-primary font-mono" data-en="Technical Skills" data-de="Technische Fähigkeiten">// Technical Skills</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-javascript-plain colored text-2xl"></i>
-                            <span>JavaScript</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-javascript-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">JavaScript</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="95"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-typescript-plain colored text-2xl"></i>
-                            <span>TypeScript</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-typescript-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">TypeScript</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="90"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-java-plain colored text-2xl"></i>
-                            <span>Java</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-java-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Java</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="85"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-csharp-plain colored text-2xl"></i>
-                            <span>C#</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-csharp-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">C#</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="90"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-python-plain colored text-2xl"></i>
-                            <span>Python</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-python-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Python</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="85"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-react-original colored text-2xl"></i>
-                            <span>React</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-react-original colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">React</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="90"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-angularjs-plain colored text-2xl"></i>
-                            <span>Angular</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-angularjs-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Angular</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="95"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-nodejs-plain colored text-2xl"></i>
-                            <span>Node.js</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-nodejs-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Node.js</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="88"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-nestjs-plain colored text-2xl"></i>
-                            <span>NestJS</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-nestjs-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">NestJS</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="85"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-mysql-plain colored text-2xl"></i>
-                            <span>SQL</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-mysql-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">SQL</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="80"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-git-plain colored text-2xl"></i>
-                            <span>Git</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-git-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Git</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="92"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-colors">
-                            <i class="devicon-docker-plain colored text-2xl"></i>
-                            <span>Docker</span>
+                        <div class="skill-item flex items-center space-x-3 bg-dark p-4 rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:scale-105 group">
+                            <i class="devicon-docker-plain colored text-2xl group-hover:animate-bounce-slow"></i>
+                            <div>
+                                <span class="block font-mono">Docker</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="75"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Soft Skills -->
-                <div>
-                    <h3 class="text-2xl font-bold mb-8 text-primary" data-en="Soft Skills" data-de="Soziale Fähigkeiten">Soft Skills</h3>
+                <div class="animate-slide-in-right">
+                    <h3 class="text-2xl font-bold mb-8 text-primary font-mono" data-en="Soft Skills" data-de="Soziale Fähigkeiten">// Soft Skills</h3>
                     <div class="space-y-4">
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Agile Methodologies & Scrum</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Agile Methodologies & Scrum</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="95"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Cross-Functional Team Collaboration</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Cross-Functional Team Collaboration</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="90"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Problem Solving</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Problem Solving</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="98"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Adaptability</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Adaptability</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="92"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Leadership</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Leadership</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="85"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-colors">
-                            <div class="w-3 h-3 bg-primary rounded-full"></div>
-                            <span>Effective Communication</span>
+                        <div class="flex items-center space-x-4 p-4 bg-dark rounded-lg hover:bg-dark-card transition-all duration-300 transform hover:translate-x-2 group">
+                            <div class="w-3 h-3 bg-primary rounded-full group-hover:animate-pulse"></div>
+                            <div class="flex-1">
+                                <span class="font-mono">Effective Communication</span>
+                                <div class="skill-bar mt-1">
+                                    <div class="skill-progress" data-skill="88"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+ 
     <!-- Contact Section -->
-    <section id="contact" class="section-padding">
+    <section id="contact" class="section-padding intersection-observed">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
-                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 mx-auto mb-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center floating-element">
                     <i class="fas fa-envelope text-2xl text-white"></i>
                 </div>
                 <h2 class="text-4xl font-bold gradient-text">
@@ -529,150 +1069,437 @@
             
             <div class="grid md:grid-cols-2 gap-12">
                 <!-- Contact Form -->
-                <div class="bg-dark-lighter rounded-lg p-8">
-                    <form class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-3 text-primary" data-en="Name" data-de="Name">Name</label>
-                            <input type="text" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-colors">
+                <div class="bg-dark-lighter rounded-lg p-8 card-hover">
+                    <div class="terminal-window mb-6">
+                        <div class="terminal-header">
+                            <div class="terminal-dot dot-red"></div>
+                            <div class="terminal-dot dot-yellow"></div>
+                            <div class="terminal-dot dot-green"></div>
+                            <span class="text-gray-400 font-mono text-sm ml-2">contact-form.js</span>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-3 text-primary" data-en="Email" data-de="E-Mail">Email</label>
-                            <input type="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-colors">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-3 text-primary" data-en="Subject" data-de="Betreff">Subject</label>
-                            <input type="text" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-colors">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-3 text-primary" data-en="Message" data-de="Nachricht">Message</label>
-                            <textarea rows="5" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-colors resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold transition-colors">
-                            <span data-en="Send Message" data-de="Nachricht senden">Send Message</span>
-                        </button>
-                    </form>
-                </div>
-                
-                <!-- Contact Info -->
-                <div class="space-y-8">
-                    <div class="bg-dark-lighter rounded-lg p-8">
-                        <h3 class="text-2xl font-bold mb-6 text-primary" data-en="Contact Information" data-de="Kontaktinformationen">Contact Information</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-envelope text-white"></i>
-                                </div>
-                                <a href="mailto:engr.alvina.arshad@gmail.com" class="hover:text-primary transition-colors">
-                                    engr.alvina.arshad@gmail.com
-                                </a>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-phone text-white"></i>
-                                </div>
-                                <a href="tel:+4915755840218" class="hover:text-primary transition-colors">
-                                    +49 15755840218
-                                </a>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-map-marker-alt text-white"></i>
-                                </div>
-                                <span>Magdeburg, Germany</span>
-                            </div>
+                        <div class="p-4 font-mono text-sm">
+                            <div class="text-gray-400">// Ready to collaborate? Let's build something amazing!</div>
                         </div>
                     </div>
-                    
-                    <div class="bg-dark-lighter rounded-lg p-8">
-                        <h3 class="text-2xl font-bold mb-6 text-primary" data-en="Follow Me" data-de="Folgen Sie mir">Follow Me</h3>
-                        <div class="flex space-x-4">
-                            <a href="https://github.com/alvina-arshad" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-dark border border-gray-600 rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
-                                <i class="fab fa-github text-xl"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/alvina-arshad-0b369017a/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-dark border border-gray-600 rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
-                                <i class="fab fa-linkedin text-xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <form class="space-y-6" id="contactForm">
+                        <div class="group">
+                            <label class="block text-sm font-medium mb-3 text-primary font-mono group-hover:text-accent transition-colors" data-en="const name = " data-de="const name = ">const name = </label>
+                            <input type="text" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-primary/20 font-mono">
+                       </div>
+                       <div class="group">
+                           <label class="block text-sm font-medium mb-3 text-primary font-mono group-hover:text-accent transition-colors" data-en="const email = " data-de="const email = ">const email = </label>
+                           <input type="email" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-primary/20 font-mono">
+                       </div>
+                       <div class="group">
+                           <label class="block text-sm font-medium mb-3 text-primary font-mono group-hover:text-accent transition-colors" data-en="const subject = " data-de="const subject = ">const subject = </label>
+                           <input type="text" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-primary/20 font-mono">
+                       </div>
+                       <div class="group">
+                           <label class="block text-sm font-medium mb-3 text-primary font-mono group-hover:text-accent transition-colors" data-en="const message = " data-de="const message = ">const message = </label>
+                           <textarea rows="5" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg focus:border-primary focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-primary/20 resize-none font-mono"></textarea>
+                       </div>
+                       <button type="submit" class="w-full px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-mono relative overflow-hidden group">
+                           <span class="relative z-10" data-en="sendMessage()" data-de="nachrichtSenden()">sendMessage()</span>
+                           <div class="absolute inset-0 bg-gradient-to-r from-primary to-accent transform translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                       </button>
+                   </form>
+               </div>
+               
+               <!-- Contact Info -->
+               <div class="space-y-8">
+                   <div class="bg-dark-lighter rounded-lg p-8 card-hover">
+                       <div class="terminal-window mb-6">
+                           <div class="terminal-header">
+                               <div class="terminal-dot dot-red"></div>
+                               <div class="terminal-dot dot-yellow"></div>
+                               <div class="terminal-dot dot-green"></div>
+                               <span class="text-gray-400 font-mono text-sm ml-2">contact-info.json</span>
+                           </div>
+                           <div class="p-4 font-mono text-sm">
+                               <div class="text-accent">{</div>
+                               <div class="text-gray-300 ml-4">"status": <span class="text-green-400">"available_for_opportunities"</span>,</div>
+                               <div class="text-gray-300 ml-4">"response_time": <span class="text-yellow-400">"< 24h"</span></div>
+                               <div class="text-accent">}</div>
+                           </div>
+                       </div>
+                       <h3 class="text-2xl font-bold mb-6 text-primary font-mono" data-en="// Contact Information" data-de="// Kontaktinformationen">// Contact Information</h3>
+                       <div class="space-y-6">
+                           <div class="flex items-center space-x-4 group hover:transform hover:translate-x-2 transition-all duration-300">
+                               <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:animate-pulse">
+                                   <i class="fas fa-envelope text-white"></i>
+                               </div>
+                               <a href="mailto:engr.alvina.arshad@gmail.com" class="hover:text-primary transition-colors font-mono">
+                                   engr.alvina.arshad@gmail.com
+                               </a>
+                           </div>
+                           <div class="flex items-center space-x-4 group hover:transform hover:translate-x-2 transition-all duration-300">
+                               <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:animate-pulse">
+                                   <i class="fas fa-phone text-white"></i>
+                               </div>
+                               <a href="tel:+4915755840218" class="hover:text-primary transition-colors font-mono">
+                                   +49 15755840218
+                               </a>
+                           </div>
+                           <div class="flex items-center space-x-4 group hover:transform hover:translate-x-2 transition-all duration-300">
+                               <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center group-hover:animate-pulse">
+                                   <i class="fas fa-map-marker-alt text-white"></i>
+                               </div>
+                               <span class="font-mono">Magdeburg, Germany</span>
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div class="bg-dark-lighter rounded-lg p-8 card-hover">
+                       <h3 class="text-2xl font-bold mb-6 text-primary font-mono" data-en="// Social Links" data-de="// Social Links">// Social Links</h3>
+                       <div class="flex space-x-4">
+                           <a href="https://github.com/alvina-arshad" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-dark border border-gray-600 rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 transform hover:scale-110 hover:rotate-12 group">
+                               <i class="fab fa-github text-xl group-hover:animate-pulse"></i>
+                           </a>
+                           <a href="https://www.linkedin.com/in/alvina-arshad-0b369017a/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-dark border border-gray-600 rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-all duration-300 transform hover:scale-110 hover:rotate-12 group">
+                               <i class="fab fa-linkedin text-xl group-hover:animate-pulse"></i>
+                           </a>
+                       </div>
+                   </div>
+                   
+                   <!-- Code snippet showcase -->
+                   <div class="terminal-window">
+                       <div class="terminal-header">
+                           <div class="terminal-dot dot-red"></div>
+                           <div class="terminal-dot dot-yellow"></div>
+                           <div class="terminal-dot dot-green"></div>
+                           <span class="text-gray-400 font-mono text-sm ml-2">lets-work-together.js</span>
+                       </div>
+                       <div class="p-4 font-mono text-sm">
+                           <div class="text-purple-400">import</div>
+                           <div class="text-gray-300 ml-4">{ <span class="text-accent">collaboration</span> } from <span class="text-green-400">'./future-projects'</span>;</div>
+                           <div class="text-purple-400 mt-2">const</div>
+                           <div class="text-accent ml-4">workTogether = async () => {</div>
+                           <div class="text-gray-300 ml-8">return await <span class="text-yellow-400">buildAmazingThings</span>();</div>
+                           <div class="text-accent ml-4">};</div>
+                           <div class="text-gray-300 mt-2">workTogether();</div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+
+   <!-- Footer -->
+   <footer class="py-8 px-6 bg-dark-lighter border-t border-gray-800">
+       <div class="max-w-6xl mx-auto">
+           <div class="flex flex-col md:flex-row justify-between items-center">
+               <div class="mb-4 md:mb-0">
+                   <div class="text-xl font-bold gradient-text font-mono glitch" data-text="<Alvina/>">
+                       &lt;Alvina/&gt;
+                   </div>
+               </div>
+               <div class="terminal-window">
+                   <div class="terminal-header">
+                       <div class="terminal-dot dot-red"></div>
+                       <div class="terminal-dot dot-yellow"></div>
+                       <div class="terminal-dot dot-green"></div>
+                   </div>
+                   <div class="p-3 font-mono text-xs">
+                       <div class="text-gray-400">
+                           <span data-en="© 2024 Alvina Arshad. console.log('Thanks for visiting!');" data-de="© 2024 Alvina Arshad. console.log('Danke für Ihren Besuch!');">© 2024 Alvina Arshad. console.log('Thanks for visiting!');</span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </footer>
+
+   <script>
+       // Language toggle functionality
+       let currentLang = 'en';
+       
+       const langToggle = document.getElementById('langToggle');
+       
+       function updateLanguage() {
+           const elements = document.querySelectorAll('[data-en]');
+           elements.forEach(element => {
+               const enText = element.getAttribute('data-en');
+               const deText = element.getAttribute('data-de');
+               
+               if (currentLang === 'en') {
+                   element.textContent = enText;
+               } else {
+                   element.textContent = deText;
+               }
+           });
+           
+           langToggle.textContent = currentLang === 'en' ? 'Deutsch' : 'English';
+       }
+       
+       langToggle.addEventListener('click', () => {
+           currentLang = currentLang === 'en' ? 'de' : 'en';
+           updateLanguage();
+       });
+
+       // Mobile menu toggle
+       const mobileMenu = document.getElementById('mobileMenu');
+       const mobileMenuContent = document.getElementById('mobileMenuContent');
+       
+       mobileMenu.addEventListener('click', () => {
+           mobileMenuContent.classList.toggle('hidden');
+       });
+
+       // Smooth scrolling for navigation links
+       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+           anchor.addEventListener('click', function (e) {
+               e.preventDefault();
+               const target = document.querySelector(this.getAttribute('href'));
+               if (target) {
+                   target.scrollIntoView({
+                       behavior: 'smooth',
+                       block: 'start'
+                   });
+                   // Close mobile menu if open
+                   mobileMenuContent.classList.add('hidden');
+               }
+           });
+       });
+
+       // Matrix background animation
+       function createMatrixBackground() {
+           const matrixBg = document.getElementById('matrixBg');
+           const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>/{}[]()';
+           
+           for (let i = 0; i < 50; i++) {
+               const char = document.createElement('div');
+               char.className = 'matrix-char';
+               char.textContent = chars[Math.floor(Math.random() * chars.length)];
+               char.style.left = Math.random() * 100 + '%';
+               char.style.animationDelay = Math.random() * 20 + 's';
+               char.style.animationDuration = (Math.random() * 10 + 10) + 's';
+               matrixBg.appendChild(char);
+           }
+       }
+
+       // Intersection Observer for animations
+       const observerOptions = {
+           threshold: 0.1,
+           rootMargin: '0px 0px -50px 0px'
+       };
+
+       const observer = new IntersectionObserver((entries) => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.classList.add('visible');
+                   
+                   // Animate skill bars
+                   const skillBars = entry.target.querySelectorAll('.skill-progress');
+                   skillBars.forEach(bar => {
+                       const skill = bar.getAttribute('data-skill');
+                       setTimeout(() => {
+                           bar.style.width = skill + '%';
+                       }, 500);
+                   });
+               }
+           });
+       }, observerOptions);
+
+       // Observe all sections
+       document.querySelectorAll('.intersection-observed').forEach(section => {
+           observer.observe(section);
+       });
+
+       // Typing animation for terminal
+       function typeText(element, text, delay = 50) {
+           element.textContent = '';
+           let i = 0;
+           const timer = setInterval(() => {
+               element.textContent += text[i];
+               i++;
+               if (i === text.length) {
+                   clearInterval(timer);
+               }
+           }, delay);
+       }
+
+// Custom notification function
+function showNotification(title, message, type = 'success') {
+    // Remove existing notification
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <div class="notification-header">
+            <div class="notification-dot dot-red"></div>
+            <div class="notification-dot dot-yellow"></div>
+            <div class="notification-dot dot-green"></div>
+            <span class="text-gray-400 text-xs">notification.js</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 px-6 bg-dark-lighter border-t border-gray-800">
-        <div class="max-w-6xl mx-auto text-center">
-            <div class="mb-4">
-                <div class="text-xl font-bold gradient-text">
-                    &lt;Alvina/&gt;
-                </div>
-            </div>
-            <p class="text-gray-400">
-                <span data-en="© 2024 Alvina Arshad. All rights reserved." data-de="© 2024 Alvina Arshad. Alle Rechte vorbehalten.">© 2024 Alvina Arshad. All rights reserved.</span>
-            </p>
+        <div class="notification-content">
+            <div class="notification-title">${title}</div>
+            <div>${message}</div>
         </div>
-    </footer>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Hide notification after 4 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
 
-    <script>
-        // Language toggle functionality
-        let currentLang = 'en';
-        
-        const langToggle = document.getElementById('langToggle');
-        
-        function updateLanguage() {
-            const elements = document.querySelectorAll('[data-en]');
-            elements.forEach(element => {
-                const enText = element.getAttribute('data-en');
-                const deText = element.getAttribute('data-de');
-                
-                if (currentLang === 'en') {
-                    element.textContent = enText;
-                } else {
-                    element.textContent = deText;
-                }
-            });
-            
-            langToggle.textContent = currentLang === 'en' ? 'Deutsch' : 'English';
-        }
-        
-        langToggle.addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'de' : 'en';
-            updateLanguage();
-        });
+// Form submission with mailto
+// Custom notification function
+function showNotification(title, message, type = 'success') {
+    // Remove existing notification
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <div class="notification-header">
+            <div class="notification-dot dot-red"></div>
+            <div class="notification-dot dot-yellow"></div>
+            <div class="notification-dot dot-green"></div>
+            <span class="text-gray-400 text-xs">notification.js</span>
+        </div>
+        <div class="notification-content">
+            <div class="notification-title">${title}</div>
+            <div>${message}</div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Hide notification after 4 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
 
-        // Mobile menu toggle
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuContent = document.getElementById('mobileMenuContent');
-        
-        mobileMenu.addEventListener('click', () => {
-            mobileMenuContent.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    mobileMenuContent.classList.add('hidden');
-                }
-            });
-        });
-
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert(currentLang === 'en' ? 'Thank you for your message! I will get back to you soon.' : 'Vielen Dank für Ihre Nachricht! Ich werde mich bald bei Ihnen melden.');
+// Form submission with mailto
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const button = this.querySelector('button[type="submit"]');
+    const originalText = button.querySelector('span').textContent;
+    
+    // Get form data using more specific selectors
+    const inputs = this.querySelectorAll('input');
+    const textarea = this.querySelector('textarea');
+    
+    const name = inputs[0].value;        // First input (name)
+    const email = inputs[1].value;       // Second input (email)
+    const subject = inputs[2].value;     // Third input (subject)
+    const message = textarea.value;      // Textarea (message)
+    
+    console.log('Form data:', { name, email, subject, message }); // Debug log
+    
+    // Create mailto URL
+    const mailtoLink = `mailto:engr.alvina.arshad@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Subject: ${subject}\n\n` +
+        `Message:\n${message}\n\n` +
+        `--\nSent from your portfolio website`
+    )}`;
+    
+    // Animate button
+    button.querySelector('span').textContent = 'opening email...';
+    button.disabled = true;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Show custom notification
+    showNotification(
+        'Email Client Opened!',
+        'Your default email application should now be open with the message pre-filled. Just hit send!'
+    );
+    
+    // Reset button after a short delay
+    setTimeout(() => {
+        button.querySelector('span').textContent = 'email opened! ✓';
+        setTimeout(() => {
+            button.querySelector('span').textContent = originalText;
+            button.disabled = false;
             this.reset();
-        });
+        }, 2000);
+    }, 1000);
+});
 
-        // Initialize
-        updateLanguage();
-    </script>
+       // Add floating animation to tech icons
+       function addFloatingAnimation() {
+           const icons = document.querySelectorAll('.devicon-javascript-plain, .devicon-typescript-plain, .devicon-react-original');
+           icons.forEach((icon, index) => {
+               icon.style.animationDelay = (index * 0.5) + 's';
+           });
+       }
+
+       // Glitch effect for special elements
+       function addGlitchEffect() {
+           const glitchElements = document.querySelectorAll('.glitch');
+           glitchElements.forEach(element => {
+               element.addEventListener('mouseenter', () => {
+                   element.style.animation = 'glitch 0.3s ease-in-out infinite';
+               });
+               element.addEventListener('mouseleave', () => {
+                   element.style.animation = '';
+               });
+           });
+       }
+
+       // Initialize everything
+       document.addEventListener('DOMContentLoaded', () => {
+           updateLanguage();
+           createMatrixBackground();
+           addFloatingAnimation();
+           addGlitchEffect();
+           
+           // Add dynamic text to terminal
+           setTimeout(() => {
+               const terminalText = document.querySelector('.typing-animation');
+               if (terminalText) {
+                   typeText(terminalText, 'Alvina Arshad - Full Stack Software Engineer', 100);
+               }
+           }, 1000);
+       });
+
+    //    // Parallax effect for floating elements
+    //    window.addEventListener('scroll', () => {
+    //        const scrolled = window.pageYOffset;
+    //        const parallax = document.querySelectorAll('.floating-element');
+    //        parallax.forEach(element => {
+    //            const speed = 0.5;
+    //            element.style.transform = `translateY(${scrolled * speed}px)`;
+    //        });
+    //    });
+
+       // Add cursor trail effect
+       let mouseTrail = [];
+       document.addEventListener('mousemove', (e) => {
+           mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+           
+           // Keep only recent points
+           mouseTrail = mouseTrail.filter(point => Date.now() - point.time < 1000);
+       });
+
+       // Keyboard navigation
+       document.addEventListener('keydown', (e) => {
+           if (e.ctrlKey && e.key === 'k') {
+               e.preventDefault();
+               document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+           }
+       });
+   </script>
 </body>
 </html>
